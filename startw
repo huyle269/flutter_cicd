@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+flutter pub run build_runner build --delete-conflicting-outputs
+dart ./lib/data/models/generate_model.dart
+dart ./lib/ultilities/imagew.dart

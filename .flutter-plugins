@@ -1,0 +1,19 @@
+# This is a generated file; do not edit or check into version control.
+firebase_analytics=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics-8.3.3/
+firebase_analytics_web=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics_web-0.3.0+1/
+firebase_core=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.7.0/
+firebase_core_web=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.1.0/
+firebase_crashlytics=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_crashlytics-2.2.1/
+firebase_messaging=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-10.0.8/
+firebase_messaging_web=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.0.6/
+flutter_local_notifications=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-8.2.0/
+flutter_statusbarcolor_ns=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_statusbarcolor_ns-0.3.0-nullsafety/
+path_provider=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.5/
+path_provider_linux=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.0/
+path_provider_macos=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.2/
+path_provider_windows=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.3/
+shared_preferences=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.8/
+shared_preferences_linux=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_linux-2.0.2/
+shared_preferences_macos=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-2.0.2/
+shared_preferences_web=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-2.0.2/
+shared_preferences_windows=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.0.2/

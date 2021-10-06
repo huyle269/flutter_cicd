@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "91072520057",
+    "project_id": "vpb-crm-51c14",
+    "storage_bucket": "vpb-crm-51c14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91072520057:android:0c3f0b2e560a0b3cb959a8",
+        "android_client_info": {
+          "package_name": "com.vpbank.crm_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91072520057-k00prcsp8uavdq0qv2gnlo759a1rhom1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vpbank.crm_app",
+            "certificate_hash": "66e4cb56a132fed398ab0ef4e8c37990ec0ac24d"
+          }
+        },
+        {
+          "client_id": "91072520057-39h47crimen7667fa83n4c44digq5lju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJJH7QbyIFkLASSZ7HOkJQegp07XVsRyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91072520057-39h47crimen7667fa83n4c44digq5lju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
