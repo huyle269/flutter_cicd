@@ -30,7 +30,6 @@ jobs:
         CERTS_ENCRYPTION_PWD: ${{ secrets.CRM_IOS_CERTIFICATE }}
         PROVISION_ENCRYPTION_PWD: ${{ secrets.CRM_IOS_CERTIFICATE }}
         CERTS_EXPORT_PWD: ${{ secrets.CERTS_EXPORT_PWD }}
-        KEYCHAIN: ${{'KEYCHAIN'}}
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
@@ -69,15 +68,14 @@ jobs:
           security create-keychain -p "" "$KEYCHAIN"
           security list-keychains -s "$KEYCHAIN"
           security default-keychain -s "$KEYCHAIN"
-          security unlock-keychain -p "" "$KEYCHAIN"
+          security unlock-keychain -p "" "$KEYCHAIN"  
           security set-keychain-settings
           security list-keychains
       - name: Configure Code Signing
         run:
           gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase "$CERTS_ENCRYPTION_PWD" "$ENCRYPTED_CERTS_FILE_PATH"
           gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase "$PROVISION_ENCRYPTION_PWD" "$ENCRYPTED_PROVISION_FILE_PATH"
-          security create-keychain -p "" "$KEYCHAIN" security list-keychains -s "$KEYCHAIN" security default-keychain -s "$KEYCHAIN" 
-          security unlock-keychain -p "" "$KEYCHAIN" security set-keychain-settings security list-keychains
+          
           tar -xzvf "$DECRYPTED_PROVISION_FILE_PATH"
           mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
           for PROVISION in `ls ./*.mobileprovision`
