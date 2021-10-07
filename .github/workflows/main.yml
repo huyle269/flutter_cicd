@@ -79,7 +79,7 @@ jobs:
           security unlock-keychain -p "" "$KEYCHAIN" security set-keychain-settings security list-keychains
           tar -xzvf "$DECRYPTED_PROVISION_FILE_PATH"
           mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
-          for PROVISION in `ls ./*.mobileprovision`
+          for PROVISION in `ls ./ios/*.mobileprovision`
           do
             UUID=`/usr/libexec/PlistBuddy -c 'Print :UUID' /dev/stdin <<< $(security cms -D -i ./$PROVISION)`
             cp "./$PROVISION" "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
