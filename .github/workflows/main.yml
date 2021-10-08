@@ -25,8 +25,8 @@ jobs:
         XC_EXPORT_PATH: ${{ './artifacts/' }}
         ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12.gpg' }}
         DECRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12' }}
-        ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/provisioning.tar.gz.gpg' }}
-        DECRYPTED_PROVISION_FILE_PATH: ${{ './ios/provisioning.tar.gz' }}
+        ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/dev.tgz' }}
+        DECRYPTED_PROVISION_FILE_PATH: ${{ './ios/dev.mobileprovision' }}
         CERTS_ENCRYPTION_PWD: ${{ secrets.CRM_IOS_CERTIFICATE }}
         PROVISION_ENCRYPTION_PWD: ${{ secrets.CRM_IOS_CERTIFICATE }}
         CERTS_EXPORT_PWD: ${{ secrets.CERTS_EXPORT_PWD }}
