@@ -23,9 +23,9 @@ jobs:
         XC_WORKSPACE: ${{ 'Runner.xcworkspace' }}
         XC_ARCHIVE_PATH: ${{ './Runner.xcarchive' }}
         XC_EXPORT_PATH: ${{ './artifacts/' }}
-        ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12.gpg' }}
+        ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.gpg' }}
         DECRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12' }}
-        ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.tgz' }}
+        ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.gpg' }}
         DECRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.mobileprovision' }}
         CERTS_ENCRYPTION_PWD: ${{ secrets.CRM_IOS_CERTIFICATE }}
         PROVISION_ENCRYPTION_PWD: ${{ secrets.CRM_IOS_CERTIFICATE }}
@@ -88,4 +88,3 @@ jobs:
           token: ${{ secrets.CICD_CLONE }}
 
           # https://zenn.dev/pressedkonbu/articles/254ca2fc3cd1ab
-          
