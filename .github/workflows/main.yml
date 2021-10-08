@@ -13,26 +13,12 @@ on:
 
 #Actions      
 jobs:
-  build:
-    name: Build & Release
+  build_iOS:
+    name: Build for iOS
     runs-on: macos-latest
-    env:
-        XC_VERSION: ${{ '12.5.1' }}
-        XC_SCHEME: ${{ 'dev' }}
-        XC_CONFIGURATION: ${{ 'Automation' }}
-        XC_WORKSPACE: ${{ 'Runner.xcworkspace' }}
-        XC_ARCHIVE_PATH: ${{ './Runner.xcarchive' }}
-        XC_EXPORT_PATH: ${{ './artifacts/' }}
-        ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.gpg' }}
-        DECRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12' }}
-        ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.gpg' }}
-        DECRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.mobileprovision' }}
-        CERTS_ENCRYPTION_PWD: ${{ secrets.CRM_IOS_CERTIFICATE }}
-        PROVISION_ENCRYPTION_PWD: ${{ secrets.CRM_IOS_CERTIFICATE }}
-        CERTS_EXPORT_PWD: ${{ secrets.CERTS_EXPORT_PWD }}
-        KEYCHAIN: ${{'KEYCHAIN'}}
+    
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
           java-version: '16.x'
@@ -41,43 +27,22 @@ jobs:
           flutter-version: '2.5.2'
       - run: flutter pub get
 
-      # - run:  flutter build apk --flavor dev -t ./lib/main_dev.dart --debug
-      
-      # - name: Upload APK artifact 
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: app-dev-debug-apk
-      #     path: build/app/outputs/flutter-apk/app-dev-debug.apk # Need to change path when change build command
-      #     tag: v1.0.${{ github.run_number }}
-      #     token: ${{ secrets.CICD_CLONE }}
+      - name: Import Provisioning Profile
+        run: mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+        echo -n ${{ secrets.PROVISIONING_PROFILE }} | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/adhoc.mobileprovision
 
-      - name: Select latest Xcode
-        run: "sudo xcode-select -s /Applications/Xcode.app"
-      - uses: actions/checkout@v1
-      - name: Configure Keychain
-        run:
-          security list-keychains -s "$KEYCHAIN"
-          security default-keychain -s "$KEYCHAIN"
-          security unlock-keychain -p "" "$KEYCHAIN"  
-          security set-keychain-settings
-          security list-keychains
-      - name: Configure Code Signing
-        run:
-          gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase "$CERTS_ENCRYPTION_PWD" "$ENCRYPTED_CERTS_FILE_PATH"
-          gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase "$PROVISION_ENCRYPTION_PWD" "$ENCRYPTED_PROVISION_FILE_PATH"
-          security create-keychain -p "" "$KEYCHAIN" security list-keychains -s "$KEYCHAIN" security default-keychain -s "$KEYCHAIN" 
-          security unlock-keychain -p "" "$KEYCHAIN" security set-keychain-settings security list-keychains
-          tar -xzvf "$DECRYPTED_PROVISION_FILE_PATH"
-          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
-          for PROVISION in ${{ './ios/*.mobileprovision' }}
-          do
-            cp "./$PROVISION" "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
-          done
-      - name: Archive
-        run: |
-          mkdir artifacts
-          /usr/bin/xcodebuild archive -workspace "$XC_WORKSPACE" -scheme "$XC_SCHEME" -configuration "$XC_CONFIGURATION" -archivePath "$XC_ARCHIVE_PATH" "OTHER_CODE_SIGN_FLAGS=--keychain '$KEYCHAIN'"
-      
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
+        with:
+          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
+
+      # ipa ファイルの出力
+      - name: Create ipa file
+        # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
+        run: flutter build ipa --build-number ${GITHUB_RUN_NUMBER}
+
+
       - name: Upload IPA artifact 
         uses: actions/upload-artifact@v1
         with:
