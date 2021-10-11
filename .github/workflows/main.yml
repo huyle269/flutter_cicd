@@ -44,7 +44,8 @@ jobs:
 
       - name: Import Provisioning Profile
         run: gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_CERTS_FILE_PATH"
-
+             gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_PROVISION_FILE_PATH"
+             
       - name: Import Code-Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
         with:
