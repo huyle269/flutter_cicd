@@ -20,7 +20,7 @@ jobs:
       XC_VERSION: ${{ '12.5.1' }}
       XC_SCHEME: ${{ 'dev' }}
       XC_CONFIGURATION: ${{ 'Automation' }}
-      XC_WORKSPACE: ${{ 'Runner.xcworkspace' }}
+      XC_WORKSPACE: ${{ '/Users/runner/work/flutter_cicd/flutter_cicd/Runner.xcarchive' }}
       XC_ARCHIVE_PATH: ${{ './Runner.xcarchive' }}
       XC_EXPORT_PATH: ${{ './artifacts/' }}
       ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.gpg' }}
