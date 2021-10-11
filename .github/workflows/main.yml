@@ -54,20 +54,20 @@ jobs:
       - name: Decrypt Provisioning Profile
         run: gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_PROVISION_FILE_PATH"
 
-      # - name: Configure Keychain
-      #   run:
-      #     security list-keychains -s "$KEYCHAIN"
-      #     security default-keychain -s "$KEYCHAIN"
-      #     security unlock-keychain -p "" "$KEYCHAIN"  
-      #     security set-keychain-settings
-      #     security list-keychains
+      - name: Configure Keychain
+        run:
+          security list-keychains -s "$KEYCHAIN"
+          security default-keychain -s "$KEYCHAIN"
+          security unlock-keychain -p "" "$KEYCHAIN"  
+          security set-keychain-settings
+          security list-keychains
 
-       # 署名をする
-      - name: Import Code-Signing Certificates
-        uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
-        with:
-          p12-file-base64: "$DECRYPTED_CERTS_FILE_PATH"
-          p12-password: ${{ secrets.KEYCHAIN_PWD }}
+      #  # 署名をする
+      # - name: Import Code-Signing Certificates
+      #   uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
+      #   with:
+      #     p12-file-base64: "$DECRYPTED_CERTS_FILE_PATH"
+      #     p12-password: ${{ secrets.KEYCHAIN_PWD }}
   
       # ipa ファイルの出力
       - name: Create ipa file
