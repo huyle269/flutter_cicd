@@ -16,7 +16,12 @@ jobs:
   build_iOS:
     name: Build for iOS
     runs-on: macos-latest
-    
+    env:
+      ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.gpg' }}
+      DECRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12' }}
+      ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.gpg' }}
+      DECRYPTED_PROVISION_FILE_PATH: ${{ '~/Library/MobileDevice/Provisioning\ Profiles/adhoc.mobileprovision'}}
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
@@ -29,13 +34,13 @@ jobs:
 
       - name: Import Provisioning Profile
         run: mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-        echo -n ${{ secrets.PROVISIONING_PROFILE }} | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/adhoc.mobileprovision
+        run: gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase "$CERTS_ENCRYPTION_PWD" "$ENCRYPTED_CERTS_FILE_PATH"
 
       - name: Import Code-Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
         with:
-          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
-          p12-password: ${{ secrets.CERTIFICATE_PASSWORD }}
+          p12-file-base64: "$ENCRYPTED_CERTS_FILE_PATH"
+          p12-password: ${{ secrets.CERTS_EXPORT_PWD }}
 
       # ipa ファイルの出力
       - name: Create ipa file
