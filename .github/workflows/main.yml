@@ -17,6 +17,12 @@ jobs:
     name: Build for iOS
     runs-on: macos-latest
     env:
+      XC_VERSION: ${{ '12.5.1' }}
+      XC_SCHEME: ${{ 'dev' }}
+      XC_CONFIGURATION: ${{ 'Automation' }}
+      XC_WORKSPACE: ${{ 'Runner.xcworkspace' }}
+      XC_ARCHIVE_PATH: ${{ './Runner.xcarchive' }}
+      XC_EXPORT_PATH: ${{ './artifacts/' }}
       ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.gpg' }}
       DECRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12' }}
       ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.gpg' }}
@@ -59,7 +65,9 @@ jobs:
       # ipa ファイルの出力
       - name: Create ipa file
         # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
-        run: flutter build --flavor dev -t ipa --build-number ${GITHUB_RUN_NUMBER}
+        run: run: |
+          mkdir artifacts
+          /usr/bin/xcodebuild archive -workspace "$XC_WORKSPACE" -scheme "$XC_SCHEME" -configuration "$XC_CONFIGURATION" -archivePath "$XC_ARCHIVE_PATH" "OTHER_CODE_SIGN_FLAGS=--keychain '$KEYCHAIN'"
 
 
       - name: Upload IPA artifact 
