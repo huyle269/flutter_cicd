@@ -67,7 +67,7 @@ jobs:
         uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
         with:
           p12-file-base64: "$DECRYPTED_CERTS_FILE_PATH"
-          p12-password: ${{ secrets.CERTS_EXPORT_PWD }}
+          p12-password: ""
 
       # ipa ファイルの出力
       - name: Create ipa file
