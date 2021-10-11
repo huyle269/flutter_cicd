@@ -59,7 +59,7 @@ jobs:
       # ipa ファイルの出力
       - name: Create ipa file
         # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
-        run: flutter build ipa --build-number ${GITHUB_RUN_NUMBER}
+        run: flutter build --flavor dev ipa --build-number ${GITHUB_RUN_NUMBER}
 
 
       - name: Upload IPA artifact 
