@@ -65,7 +65,8 @@ jobs:
       # ipa ファイルの出力
       - name: Create ipa file
         # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
-        run: /usr/bin/xcodebuild archive -workspace "$XC_WORKSPACE" -scheme "$XC_SCHEME" -configuration "$XC_CONFIGURATION" -archivePath "$XC_ARCHIVE_PATH" "OTHER_CODE_SIGN_FLAGS=--keychain '$KEYCHAIN'"
+        run: flutter build ipa --flavor dev -t --export-options-plist="---/build/ios/archive/flutter_cicd.xcarchive/Info.plist"
+        # run: /usr/bin/xcodebuild archive -workspace "$XC_WORKSPACE" -scheme "$XC_SCHEME" -configuration "$XC_CONFIGURATION" -archivePath "$XC_ARCHIVE_PATH" "OTHER_CODE_SIGN_FLAGS=--keychain '$KEYCHAIN'"
 
 
       - name: Upload IPA artifact 
