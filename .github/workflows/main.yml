@@ -42,9 +42,10 @@ jobs:
           security list-keychains
 
 
-      - name: Import Provisioning Profile
+      - name: Import Provisioning Profile 1
         run: gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_CERTS_FILE_PATH"
-             
+      
+      - name: Import Provisioning Profile 2   
         run: gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_PROVISION_FILE_PATH"
 
       - name: Import Code-Signing Certificates
