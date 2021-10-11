@@ -20,7 +20,7 @@ jobs:
       ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.gpg' }}
       DECRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12' }}
       ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.gpg' }}
-      DECRYPTED_PROVISION_FILE_PATH: ${{ '~/Library/MobileDevice/Provisioning\ Profiles/adhoc.mobileprovision'}}
+      DECRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.mobileprovision'}}
       KEYCHAIN: ${{'KEYCHAIN'}}
 
     steps:
@@ -45,7 +45,7 @@ jobs:
       - name: Import Provisioning Profile
         run: gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_CERTS_FILE_PATH"
              gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_PROVISION_FILE_PATH"
-             
+
       - name: Import Code-Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
         with:
