@@ -54,19 +54,25 @@ jobs:
       - name: Decrypt Provisioning Profile
         run: gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_PROVISION_FILE_PATH"
 
-      - name: Configure Keychain
-        run:
-          security list-keychains -s "$KEYCHAIN"
-          security default-keychain -s "$KEYCHAIN"
-          security unlock-keychain -p "" "$KEYCHAIN"  
-          security set-keychain-settings
-          security list-keychains
+      # - name: Configure Keychain
+      #   run:
+      #     security list-keychains -s "$KEYCHAIN"
+      #     security default-keychain -s "$KEYCHAIN"
+      #     security unlock-keychain -p "" "$KEYCHAIN"  
+      #     security set-keychain-settings
+      #     security list-keychains
+
+       # 署名をする
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
+        with:
+          p12-file-base64: "$DECRYPTED_CERTS_FILE_PATH"
+          p12-password: ${{ secrets.CERTS_EXPORT_PWD }}
 
       # ipa ファイルの出力
       - name: Create ipa file
         # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
-        run: flutter build ipa --flavor dev -t --export-options-plist="---/build/ios/archive/flutter_cicd.xcarchive/Info.plist"
-        # run: /usr/bin/xcodebuild archive -workspace "$XC_WORKSPACE" -scheme "$XC_SCHEME" -configuration "$XC_CONFIGURATION" -archivePath "$XC_ARCHIVE_PATH" "OTHER_CODE_SIGN_FLAGS=--keychain '$KEYCHAIN'"
+        run: /usr/bin/xcodebuild archive -workspace "$XC_WORKSPACE" -scheme "$XC_SCHEME" -configuration "$XC_CONFIGURATION" -archivePath "$XC_ARCHIVE_PATH" "OTHER_CODE_SIGN_FLAGS=--keychain '$KEYCHAIN'"
 
 
       - name: Upload IPA artifact 
