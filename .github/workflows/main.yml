@@ -48,7 +48,7 @@ jobs:
       - name: Import Code-Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
         with:
-          p12-file-base64: "$ENCRYPTED_CERTS_FILE_PATH"
+          p12-file-base64: "$DECRYPTED_CERTS_FILE_PATH"
           p12-password: ${{ secrets.CERTS_EXPORT_PWD }}
 
       # ipa ファイルの出力
