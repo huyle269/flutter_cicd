@@ -30,7 +30,7 @@ jobs:
       - run:  flutter build apk --flavor dev -t ./lib/main_dev.dart --debug
     
       - name: Upload APK artifact 
-        uses: actions/upload-artifact@v1
+        uses: ncipollo/release-action@v1
         with:
           name: app-dev-debug-apk
           path: build/app/outputs/flutter-apk/app-dev-debug.apk # Need to change path when change build command
@@ -38,74 +38,74 @@ jobs:
           token: ${{ secrets.CICD_CLONE }}
 
 
-  # build_iOS:
-  #   name: Build for iOS
-  #   runs-on: macos-latest
-  #   env:
-  #     XC_VERSION: ${{ '12.5.1' }}
-  #     XC_SCHEME: ${{ 'dev' }}
-  #     XC_CONFIGURATION: ${{ 'Automation' }}
-  #     XC_WORKSPACE: ${{ './ios/Runner.xcworkspace' }}
-  #     XC_ARCHIVE_PATH: ${{ './ios/Runner.xcarchive' }}
-  #     XC_EXPORT_PATH: ${{ './artifacts/' }}
-  #     ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.gpg' }}
-  #     DECRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12' }}
-  #     ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.gpg' }}
-  #     DECRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.mobileprovision'}}
-  #     KEYCHAIN: ${{'KEYCHAIN'}}
+  build_iOS:
+    name: Build for iOS
+    runs-on: macos-latest
+    env:
+      XC_VERSION: ${{ '12.5.1' }}
+      XC_SCHEME: ${{ 'dev' }}
+      XC_CONFIGURATION: ${{ 'Automation' }}
+      XC_WORKSPACE: ${{ './ios/Runner.xcworkspace' }}
+      XC_ARCHIVE_PATH: ${{ './ios/Runner.xcarchive' }}
+      XC_EXPORT_PATH: ${{ './artifacts/' }}
+      ENCRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.gpg' }}
+      DECRYPTED_CERTS_FILE_PATH: ${{ './ios/certs.p12' }}
+      ENCRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.gpg' }}
+      DECRYPTED_PROVISION_FILE_PATH: ${{ './ios/adhoc.mobileprovision'}}
+      KEYCHAIN: ${{'KEYCHAIN'}}
 
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - uses: actions/setup-java@v1
-  #       with:
-  #         java-version: '16.x'
-  #     - uses: subosito/flutter-action@v1
-  #       with:
-  #         flutter-version: '2.5.2'
-  #     - run: flutter pub get
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '16.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.5.2'
+      - run: flutter pub get
 
-  #     - name: Configure Keychain
-  #       run:
-  #         security list-keychains -s "$KEYCHAIN"
-  #         security default-keychain -s "$KEYCHAIN"
-  #         security unlock-keychain -p "" "$KEYCHAIN"  
-  #         security set-keychain-settings
-  #         security list-keychains
+      - name: Configure Keychain
+        run:
+          security list-keychains -s "$KEYCHAIN"
+          security default-keychain -s "$KEYCHAIN"
+          security unlock-keychain -p "" "$KEYCHAIN"  
+          security set-keychain-settings
+          security list-keychains
 
 
-  #     - name: Decrypt Certificate
-  #       run: gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_CERTS_FILE_PATH"
+      - name: Decrypt Certificate
+        run: gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_CERTS_FILE_PATH"
       
-  #     - name: Decrypt Provisioning Profile
-  #       run: gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_PROVISION_FILE_PATH"
+      - name: Decrypt Provisioning Profile
+        run: gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase ${{ secrets.CERTS_EXPORT_PWD }} "$ENCRYPTED_PROVISION_FILE_PATH"
 
-  #     - name: Configure Keychain
-  #       run:
-  #         security list-keychains -s "$KEYCHAIN"
-  #         security default-keychain -s "$KEYCHAIN"
-  #         security unlock-keychain -p "" "$KEYCHAIN"  
-  #         security set-keychain-settings
-  #         security list-keychains
+      - name: Configure Keychain
+        run:
+          security list-keychains -s "$KEYCHAIN"
+          security default-keychain -s "$KEYCHAIN"
+          security unlock-keychain -p "" "$KEYCHAIN"  
+          security set-keychain-settings
+          security list-keychains
 
-  #     #  # 署名をする
-  #     # - name: Import Code-Signing Certificates
-  #     #   uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
-  #     #   with:
-  #     #     p12-file-base64: "$DECRYPTED_CERTS_FILE_PATH"
-  #     #     p12-password: ${{ secrets.KEYCHAIN_PWD }}
+      #  # 署名をする
+      # - name: Import Code-Signing Certificates
+      #   uses: Apple-Actions/import-codesign-certs@v1 # 外部パッケージを使っている
+      #   with:
+      #     p12-file-base64: "$DECRYPTED_CERTS_FILE_PATH"
+      #     p12-password: ${{ secrets.KEYCHAIN_PWD }}
   
-  #     # ipa ファイルの出力
-  #     - name: Create ipa file
-  #       # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
-  #       run: /usr/bin/xcodebuild archive -workspace "$XC_WORKSPACE" -scheme "$XC_SCHEME" -configuration "$XC_CONFIGURATION" -archivePath "$XC_ARCHIVE_PATH" "OTHER_CODE_SIGN_FLAGS=--keychain '$KEYCHAIN'"
+      # ipa ファイルの出力
+      - name: Create ipa file
+        # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
+        run: /usr/bin/xcodebuild archive -workspace "$XC_WORKSPACE" -scheme "$XC_SCHEME" -configuration "$XC_CONFIGURATION" -archivePath "$XC_ARCHIVE_PATH" "OTHER_CODE_SIGN_FLAGS=--keychain '$KEYCHAIN'"
 
 
-  #     - name: Upload IPA artifact 
-  #       uses: actions/upload-artifact@v1
-  #       with:
-  #         name: app-dev-debug-ipa
-  #         path: build/ios/iphoneos/app.ipa # Need to change path when change build command
-  #         tag: v1.0.${{ github.run_number }}
-  #         token: ${{ secrets.CICD_CLONE }}
+      - name: Upload IPA artifact 
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-dev-debug-ipa
+          path: build/ios/iphoneos/app.ipa # Need to change path when change build command
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.CICD_CLONE }}
 
-  #         # https://zenn.dev/pressedkonbu/articles/254ca2fc3cd1ab
+          # https://zenn.dev/pressedkonbu/articles/254ca2fc3cd1ab
