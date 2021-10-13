@@ -1,3 +1,4 @@
+import 'package:crm_app/representation/screens/authentication/sme_login_screen.dart';
 import 'package:crm_app/representation/screens/main_screen.dart';
 import 'package:crm_app/representation/screens/intro_screen.dart';
 import 'package:crm_app/representation/screens/authentication/login_screen.dart';
@@ -8,6 +9,8 @@ import 'data/repository/authen_repository.dart';
 
 final Map<String, WidgetBuilder> routes = {
   IntroScreen.routeName: (context) => IntroScreen(),
-  LoginScreen.routeName: (context) => LoginScreen(authenRepositoryImpl: context.read<AuthenRepositoryImpl>()),
+  LoginScreen.routeName: (context) =>
+      LoginScreen(authenRepositoryImpl: context.read<AuthenRepositoryImpl>()),
+  SMELoginScreen.routeName: (context) => SMELoginScreen(),
   MainScreen.routeName: (context) => MainScreen(),
 };

@@ -9,7 +9,7 @@ on:
   push:
     branches:
       - master
-      - huylq19
+      # - huylq19
 
 #Actions      
 jobs:
@@ -30,7 +30,7 @@ jobs:
       - run:  flutter build apk --flavor dev -t ./lib/main_dev.dart --debug
     
       - name: Upload APK artifact 
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1  #Upload to Release
         with:
           name: app-dev-debug-apk
           path: build/app/outputs/flutter-apk/app-dev-debug.apk # Need to change path when change build command

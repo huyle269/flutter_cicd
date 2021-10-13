@@ -1,0 +1,52 @@
+{
+<<<<<<< HEAD
+  "test": "test",
+  "day": {
+    "zero": "{} days",
+    "one": "{} day",
+    "two": "{} days",
+    "few": "{} few days",
+    "many": "{} many days",
+    "other": "{} other days"
+  },
+  "hat": {
+    "zero": "no hats",
+    "one": "one hat",
+    "two": "two hats",
+    "few": "few hats",
+    "many": "many hats",
+    "other": "other hats"
+  },
+  "hat_other": {
+    "other": "other hats"
+  },
+  "login": "login"
+}
+=======
+    "test": "test",
+    "day": {
+      "zero": "{} days",
+      "one": "{} day",
+      "two": "{} days",
+      "few": "{} few days",
+      "many": "{} many days",
+      "other": "{} other days"
+    },
+    "hat": {
+      "zero": "no hats",
+      "one": "one hat",
+      "two": "two hats",
+      "few": "few hats",
+      "many": "many hats",
+      "other": "other hats"
+    },
+    "hat_other": {
+      "other": "other hats"
+    },
+    "login_form_title": "login to account",
+    "login_button_title": "sign in",
+    "remember_login": "Remember me",
+    "or_continue_login": "Or continue with",
+    "password": "Password"
+  }
+>>>>>>> origin/dev

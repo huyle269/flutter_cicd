@@ -1,7 +1,7 @@
 import 'package:crm_app/core/app_config/size_config.dart';
 
-const double screenWidthInDesign = 414.0;
-const double screenHeightInDesign = 896.0;
+const double screenWidthInDesign = 375.0;
+const double screenHeightInDesign = 812.0;
 
 extension ExtendedNumber on num {
   double get toScreenSize {
@@ -16,7 +16,8 @@ extension ExtendedNumber on num {
   }
 
   double get toScreenWidthHeight {
-    double designRatio = screenWidthInDesign / screenHeightInDesign; // iphone 12 pro max
+    double designRatio =
+        screenWidthInDesign / screenHeightInDesign; // iphone 12 pro max
     return (this * designRatio) / SizeConfig.sizeRatio;
   }
 }

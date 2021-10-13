@@ -1,4 +1,7 @@
 # This is a generated file; do not edit or check into version control.
+connectivity=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity-3.0.6/
+connectivity_for_web=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_for_web-0.4.0+1/
+connectivity_macos=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_macos-0.2.1+2/
 firebase_analytics=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics-8.3.3/
 firebase_analytics_web=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics_web-0.3.0+1/
 firebase_core=/Users/lequanghuy/FlutterSDK/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.7.0/

@@ -3,6 +3,7 @@ import 'package:crm_app/core/app_config/app_config.dart';
 import 'package:crm_app/core/session/session_manager.dart';
 import 'package:crm_app/core/app_config/size_config.dart';
 import 'package:crm_app/core/theme/theme_manager.dart';
+import 'package:crm_app/representation/cubit/connect_internet_cubit/connect_internet_cubit.dart';
 import 'package:crm_app/ultilities/analytics_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -23,7 +24,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 import 'data/repository/authen_repository.dart';
-import 'representation/cubit/connect_internet_cubit/connect_internet_cubit.dart';
 import 'representation/screens/main_screen.dart';
 import 'representation/screens/intro_screen.dart';
 
@@ -90,7 +90,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final bool ignoreIntro = hiveBox?.get(HiveKeys.ignoreIntro) ?? false;
+    // final bool ignoreIntro = hiveBox?.get(HiveKeys.ignoreIntro) ?? false;
+    final bool ignoreIntro = false;
     Logger.printOut('ignore intro = $ignoreIntro');
     // set default locale
     context.setLocale(LocaleVI);
@@ -112,10 +113,10 @@ class MyApp extends StatelessWidget {
         ],
         child: MultiBlocProvider(
           providers: [
-            // BlocProvider<ConnectInternetCubit>(
-            //   create: (context) => ConnectInternetCubit(),
-            //   lazy: false,
-            // )
+            BlocProvider<ConnectInternetCubit>(
+              create: (context) => ConnectInternetCubit(),
+              lazy: false,
+            )
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

@@ -38,7 +38,7 @@ dependencies:
   # dio
   dio:
   # connectivity
-  # connectivity:
+  connectivity:
   # bloc 
   flutter_bloc: ^7.1.0
   bloc: ^7.2.1
@@ -85,6 +85,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/sme/
     - assets/translations/
     - assets/fonts/Roboto/
 

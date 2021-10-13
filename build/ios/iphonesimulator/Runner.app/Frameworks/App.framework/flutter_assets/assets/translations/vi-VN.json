@@ -1,0 +1,27 @@
+{
+    "test": "kiểm tra",
+    "day": {
+      "zero": "{} ngày",
+      "one": "{} ngày",
+      "two": "{} ngày",
+      "few": "{} vài ngày",
+      "many": "{} nhiều ngày",
+      "other": "{} ngày khác"
+    },
+    "hat": {
+      "zero": "không mũ",
+      "one": "một mũ",
+      "two": "hai mũ",
+      "few": "vài mũ",
+      "many": "nhiều mũ",
+      "other": "mũ khác"
+    },
+    "hat_other": {
+      "other": "mũ khác"
+    },
+    "login_form_title": "đăng nhập tài khoản",
+    "login_button_title": "Đăng nhập",
+    "remember_login": "Ghi nhớ đăng nhập",
+    "or_continue_login": "Hoặc tiếp tục với",
+    "password": "Mật khẩu"
+  }

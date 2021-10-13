@@ -1,5 +1,5 @@
 import 'package:crm_app/core/constants/constants.dart';
-import 'package:crm_app/representation/screens/authentication/login_screen.dart';
+import 'package:crm_app/representation/screens/authentication/sme_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intro_slider/intro_slider.dart';
@@ -67,7 +67,8 @@ class _IntroScreenState extends State<IntroScreen> {
     var box = await Hive.openBox(HiveKeys.boxName);
     box.put(HiveKeys.ignoreIntro, true);
     print("End of slides");
-    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+    // Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+    Navigator.pushReplacementNamed(context, SMELoginScreen.routeName);
   }
 
   void onSkipPress() async {
@@ -75,7 +76,8 @@ class _IntroScreenState extends State<IntroScreen> {
     var box = await Hive.openBox(HiveKeys.boxName);
     box.put(HiveKeys.ignoreIntro, false);
     print("Ignore slides");
-    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+    // Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+    Navigator.pushReplacementNamed(context, SMELoginScreen.routeName);
   }
 
   ButtonStyle myButtonStyle() {
