@@ -29,4 +29,7 @@ class AppAssets {
   static const String validateBg = 'assets/sme/validate_background.webp';
   static const String close = 'assets/sme/ico_close.webp';
   static const String closeCircle = 'assets/sme/ico_close_circle.webp';
+  static const String retry = 'assets/sme/ico_retry.webp';
+  static const String signout = 'assets/sme/ico_signout.webp';
+  static const String verticalDivider = 'assets/sme/vertical_divider.webp';
 }

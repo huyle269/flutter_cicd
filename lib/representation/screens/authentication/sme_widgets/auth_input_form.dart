@@ -9,13 +9,13 @@ class AuthInputForm extends StatefulWidget {
     required this.textEditingController,
     required this.hintText,
     required this.validator,
-    required this.suffix,
+    this.suffix,
     this.obscureText = false,
   }) : super(key: key);
   final TextEditingController textEditingController;
   final String hintText;
   final List<FieldValidator<dynamic>>? validator;
-  final Widget suffix;
+  final Widget? suffix;
   final bool obscureText;
   @override
   _AuthInputFormState createState() => _AuthInputFormState();

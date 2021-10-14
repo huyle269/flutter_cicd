@@ -1,9 +1,12 @@
 import 'package:crm_app/core/app_assets/AppAssets.dart';
 import 'package:crm_app/core/extensions/num_extension.dart';
 import 'package:crm_app/core/utilities/quick_actions.dart';
+import 'package:crm_app/representation/screens/authentication/sme_widgets/auth_error_dialog.dart';
 import 'package:crm_app/representation/screens/authentication/sme_widgets/auth_input_form.dart';
+import 'package:crm_app/representation/screens/authentication/sme_widgets/auth_signin_validate_dialog.dart';
 import 'package:crm_app/representation/screens/authentication/sme_widgets/auth_supp_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class SMELoginScreen extends StatefulWidget {
@@ -15,7 +18,6 @@ class SMELoginScreen extends StatefulWidget {
 
 class _SMELoginScreenState extends State<SMELoginScreen> {
   late bool _signedin = true;
-  late bool _hidePassword = true;
   late TextEditingController usernameTextController = TextEditingController();
   late TextEditingController passwordTextController = TextEditingController();
 
@@ -34,6 +36,7 @@ class _SMELoginScreenState extends State<SMELoginScreen> {
               height: double.infinity,
               color: Color(0xffEDF6F7),
             ),
+            //UI
             Align(
               alignment: Alignment.bottomCenter,
               child: Image.asset(
@@ -160,11 +163,6 @@ class _SMELoginScreenState extends State<SMELoginScreen> {
                                     errorText:
                                         '* Mật khẩu phải chứa ít nhất 1 kí tự đặc biệt'),
                               ],
-                              suffix: Image.asset(
-                                _hidePassword ? AppAssets.unsee : AppAssets.see,
-                                width: 20.toScreenSize,
-                                height: 20.toScreenSize,
-                              ),
                               obscureText: true,
                             ),
                           ],
@@ -181,9 +179,7 @@ class _SMELoginScreenState extends State<SMELoginScreen> {
                         children: [
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                print('Email signin');
-                              },
+                              onTap: () => onSigningIn(SignInType.USERNAME),
                               child: Container(
                                 decoration: BoxDecoration(
                                     gradient: LinearGradient(
@@ -276,4 +272,32 @@ class _SMELoginScreenState extends State<SMELoginScreen> {
       ),
     );
   }
+
+  void onSigningIn(SignInType type) {
+    if (type == SignInType.USERNAME) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AuthErrorDialog(
+              type: DialogType.SIGNOUT,
+            );
+          });
+    } else {
+      showGeneralDialog(
+        context: context,
+        barrierDismissible: false,
+        barrierLabel: 'Dialog',
+        transitionDuration: Duration(
+            milliseconds:
+                400), // How long it takes to popup dialog after button click
+        pageBuilder: (_, __, ___) {
+          // Makes widget fullscreen
+          return AuthSignInValidateDialog(type: type);
+        },
+      );
+    }
+  }
 }
+
+enum SignInType { USERNAME, FINGERID, FACEID }
