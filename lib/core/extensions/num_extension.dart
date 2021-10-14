@@ -5,14 +5,14 @@ const double screenHeightInDesign = 812.0;
 
 extension ExtendedNumber on num {
   double get toScreenSize {
-    double designRatio = screenWidthInDesign / screenHeightInDesign;
-    double deviceRatio = SizeConfig.screenWidth / SizeConfig.screenHeight;
-    if (deviceRatio <= designRatio) {
-      return (this / screenWidthInDesign) * SizeConfig.screenWidth;
-    } else {
-      return (this / screenHeightInDesign) * SizeConfig.screenHeight;
-    }
-    // return (this / screenWidthInDesign) * SizeConfig.screenWidth;
+    // double designRatio = screenWidthInDesign / screenHeightInDesign;
+    // double deviceRatio = SizeConfig.screenWidth / SizeConfig.screenHeight;
+    // if (deviceRatio <= designRatio) {
+    //   return (this / screenWidthInDesign) * SizeConfig.screenWidth;
+    // } else {
+    //   return (this / screenHeightInDesign) * SizeConfig.screenHeight;
+    // }
+    return (this / screenWidthInDesign) * SizeConfig.screenWidth;
   }
 
   double get toScreenWidthHeight {

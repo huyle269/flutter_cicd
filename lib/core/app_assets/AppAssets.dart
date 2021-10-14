@@ -28,4 +28,5 @@ class AppAssets {
   static const String unsee = 'assets/sme/ico_unsee.webp';
   static const String validateBg = 'assets/sme/validate_background.webp';
   static const String close = 'assets/sme/ico_close.webp';
+  static const String closeCircle = 'assets/sme/ico_close_circle.webp';
 }
